@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'theme/app_theme.dart';
 import 'screens/home_screen.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(const LunaCareApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LunaCareApp extends StatelessWidget {
+  const LunaCareApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'lunacare',
+      title: 'LunaCare',
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
       home: const HomeScreen(),
     );
   }
