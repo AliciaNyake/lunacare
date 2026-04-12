@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../services/cycle_service.dart';
+import '../services/cycle_logic_service.dart';
 
 class HomeScreen extends StatelessWidget {
     const HomeScreen ({super.key}) ;
@@ -12,7 +14,7 @@ Widget build(BuildContext context) {
         body: const Center(
             child: Text(
                 'Bienvenue sur luna_care',
-                style: TextStyle(fontsize: 30),
+                style: TextStyle(fontSize: 30),
             ),
         ),
     );
