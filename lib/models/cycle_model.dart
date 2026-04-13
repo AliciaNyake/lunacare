@@ -1,17 +1,27 @@
 class CycleModel {
+  final String id;
   final DateTime startDate;
   final int cycleLength;
-  final int periodLength;
-  final String symptoms;
 
   CycleModel({
+    required this.id,
     required this.startDate,
     required this.cycleLength,
-    required this.periodLength,
-    required this.symptoms,
   });
 
-  DateTime get nextPeriodDate {
-    return startDate.add(Duration(days: cycleLength));
+  factory CycleModel.fromJson(Map<String, dynamic> json) {
+    return CycleModel(
+      id: json['id'] ?? '',
+      startDate: DateTime.parse(json['startDate']),
+      cycleLength: json['cycleLength'] ?? 28,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'startDate': startDate.toIso8601String(),
+      'cycleLength': cycleLength,
+    };
   }
 }

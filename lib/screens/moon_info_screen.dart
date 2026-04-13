@@ -42,7 +42,7 @@ class MoonInfoScreen extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return Container(
-                color: AppTheme.softPink.withOpacity(0.35),
+                color: AppTheme.softPink,
               );
             },
           ),
@@ -73,7 +73,7 @@ class MoonInfoScreen extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryPurple.withOpacity(0.45),
+                  color: AppTheme.primaryPurple,
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: const Center(
