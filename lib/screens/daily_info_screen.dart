@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
-class MyInfoScreen extends StatelessWidget {
-  const MyInfoScreen({super.key});
+class DailyInfoScreen extends StatelessWidget {
+  const DailyInfoScreen({super.key});
 
   Widget buildField(String text) {
     return Container(
@@ -55,8 +55,8 @@ class MyInfoScreen extends StatelessWidget {
               buildField('Symptômes'),
               buildField('Règles : oui / non'),
               buildField('Si oui : flux'),
-              buildField('Contraception question'),
-              buildField('Si oui : type'),
+              buildField('Contraception'),
+              buildField('Type'),
               buildField('Digestion'),
               buildField('Activité physique'),
               buildField('Test ovulation / grossesse'),
