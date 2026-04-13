@@ -1,36 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-import 'models/cycle_model.dart';
-import 'screens/home_screen.dart';
+class MoonService {
+  static const String baseUrl = 'http://localhost:3000';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  Future<Map<String, dynamic>?> getMoonInfo() async {
+    final response = await http.get(Uri.parse('$baseUrl/moon'));
 
-  //  Supabase
-  await Supabase.initialize(
-    url: 'TON_SUPABASE_URL',
-    anonKey: 'TON_SUPABASE_ANON_KEY',
-  );
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data;
+    }
 
-  //  Hive
-  await Hive.initFlutter();
-  Hive.registerAdapter(CycleModelAdapter());
-  await Hive.openBox<CycleModel>('cycles');
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'LunaCare',
-      debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
-    );
+    return null;
   }
 }

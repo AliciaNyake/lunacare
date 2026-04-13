@@ -1,28 +1,56 @@
-import 'package:hive/hive.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../models/cycle_model.dart';
+import '../models/pregnancy_model.dart';
 
 class CycleService {
-  late Box<CycleModel> _box;
+  static const String baseUrl = 'http://localhost:3000';
 
-  Future<void> init() async {
-    _box = Hive.box<CycleModel>('cycles');
+  Future<CycleModel?> getCycle() async {
+    final response = await http.get(Uri.parse('$baseUrl/cycle'));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return CycleModel.fromJson(data);
+    }
+
+    return null;
   }
 
-  Future<void> addCycle(CycleModel cycle) async {
-    await _box.add(cycle);
+  Future<void> saveCycle({
+    required DateTime startDate,
+    required int cycleLength,
+  }) async {
+    await http.post(
+      Uri.parse('$baseUrl/cycle'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'startDate': startDate.toIso8601String(),
+        'cycleLength': cycleLength,
+      }),
+    );
   }
 
-  List<CycleModel> getCycles() {
-    return _box.values.toList();
+  Future<PregnancyModel?> getPregnancy() async {
+    final response = await http.get(Uri.parse('$baseUrl/pregnancy'));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return PregnancyModel.fromJson(data);
+    }
+
+    return null;
   }
 
-  Future<void> deleteCycle(int index) async {
-    await _box.deleteAt(index);
-  }
-
-  List<DateTime> getCycleDates() {
-    return _box.values
-        .map((cycle) => DateTime.parse(cycle.date))
-        .toList();
+  Future<void> savePregnancy({
+    required DateTime startDate,
+  }) async {
+    await http.post(
+      Uri.parse('$baseUrl/pregnancy'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'startDate': startDate.toIso8601String(),
+      }),
+    );
   }
 }
